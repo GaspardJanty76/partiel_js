@@ -2,5 +2,5 @@
 
 ## Bienvenue chez Kebapi chef, j'te sers quoi chef ?
 
-![Le Pain](img/logo.webp?raw=true "Le Pain !")
+![Le Kebab](img/assiette-kebab-1.png?raw=true "Le Kebab !")
  
