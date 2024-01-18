@@ -32,6 +32,10 @@ function addRecipe() {
   }
 }
 
+function sortRecipesAlphabetically() {
+  recipes.sort((a, b) => a.name.localeCompare(b.name));
+}
+
 function sendToKitchen(index) {
   const recipe = recipes[index];
 
@@ -53,13 +57,24 @@ function sendToKitchen(index) {
 }
 
 function deleteRecipe(index) {
+  const recipeToDelete = recipes[index];
+  const ordersToDelete = sentOrders.filter(order => order.name === recipeToDelete.name);
+  
   recipes.splice(index, 1);
   updateRecipeList();
-
   localStorage.setItem('recipes', JSON.stringify(recipes));
+  
+  ordersToDelete.forEach(order => {
+    const orderIndex = sentOrders.indexOf(order);
+    sentOrders.splice(orderIndex, 1);
+  });
+  
+  updateSentOrders();
+  localStorage.setItem('sentOrders', JSON.stringify(sentOrders));
 }
 
 function updateRecipeList() {
+  sortRecipesAlphabetically();
   const recipeList = document.getElementById('recipeList');
   recipeList.innerHTML = '';
 
@@ -68,34 +83,34 @@ function updateRecipeList() {
     listItem.innerHTML = `
       ${recipe.name} - ${recipe.ingredients} 
       <div class="container mt-3">
-  <div class="row">
-    <div class="col-md-6">
-        <label for="sauceDropdown_${index}" class="form-label"></label>
-        <select id="sauceDropdown_${index}" class="form-select mb-3">
-            <option value="Sans sauce" selected>Sans sauce</option>
-            <option value="Gruyère">Gruyère</option>
-            <option value="Biggy Burger">Biggy Burger</option>
-            <option value="Chili thai">Chili thai</option>
-            <option value="Algérienne">Algérienne</option>
-            <option value="Blanche">Blanche</option>
-            <option value="Andalouse">Andalouse</option>
-            <option value="Samouraï">Samouraï</option>
-            <option value="Barbecue">Barbecue</option>
-            <option value="Harissa">Harissa</option>
-            <option value="Marocaine">Marocaine</option>
-            <option value="Mayonnaise">Mayonnaise</option>
-            <option value="Ketchup">Ketchup</option>
-            <option value="LA SAUCE DU CHEF">LA SAUCE DU CHEF</option>
-      </select>
-      <div class="col-md-6">
-      <button onclick="sendToKitchen(${index})" class="btn btn-primary">Envoyer en cuisine</button>
-      <button onclick="deleteRecipe(${index})" class="btn btn-danger">Supprimer</button>
+      <div class="row">
+        <div class="col-md-6">
+            <label for="sauceDropdown_${index}" class="form-label"></label>
+            <select id="sauceDropdown_${index}" class="form-select mb-3">
+                <option value="Sans sauce" selected>Sans sauce</option>
+                <option value="Gruyère">Gruyère</option>
+                <option value="Biggy Burger">Biggy Burger</option>
+                <option value="Chili thai">Chili thai</option>
+                <option value="Algérienne">Algérienne</option>
+                <option value="Blanche">Blanche</option>
+                <option value="Andalouse">Andalouse</option>
+                <option value="Samouraï">Samouraï</option>
+                <option value="Barbecue">Barbecue</option>
+                <option value="Harissa">Harissa</option>
+                <option value="Marocaine">Marocaine</option>
+                <option value="Mayonnaise">Mayonnaise</option>
+                <option value="Ketchup">Ketchup</option>
+                <option value="LA SAUCE DU CHEF">LA SAUCE DU CHEF</option>
+          </select>
+          <div class="col-md-6">
+          <button onclick="sendToKitchen(${index})" class="btn btn-primary">Envoyer en cuisine</button>
+          <button onclick="deleteRecipe(${index})" class="btn btn-danger">Supprimer</button>
+        </div>
+        </div>
+    
+      </div>
     </div>
-    </div>
-
-  </div>
-</div>
-<hr>
+    <hr>
     `;
     recipeList.appendChild(listItem);
   });
