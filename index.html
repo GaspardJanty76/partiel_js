@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Bienvenue chez Kebapi</title>
+    <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body class="container">
+    <h1 class="mt-5">Créez les recettes du chef</h1>
+
+    <div class="form-group">
+        <label for="recipeName">Nom de votre recette secrète:</label>
+        <input type="text" class="form-control" id="recipeName" placeholder="Entrez le nom de la recette">
+    </div>
+  
+    <div class="form-group">
+        <label for="ingredients">Vos ingrédients fraîchement achetés au marché:</label>
+        <input type="text" class="form-control" id="ingredients" placeholder="Entrez les ingrédients">
+    </div>
+  
+    <button class="btn btn-primary" onclick="addRecipe()">Créez votre recette</button>
+  
+    <h2 class="mt-4">Liste de vos divins plats et système de commande ubuntu-eats</h2>
+    <ul class="list-group" id="recipeList"></ul>
+  
+    <h2 class="mt-4">Liste des Commandes de Kebapi</h2>
+    <ul class="list-group" id="sentOrders"></ul>
+
+    <script src="methodes/recettes.js"></script>
+</body>
+</html>
